@@ -13,7 +13,7 @@
 + 缓存：redis 实现对访问量浏览量的统计
 
 前台页面展示
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20210209110919684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80ODkyMjE1NA==,size_16,color_FFFFFF,t_70)
+![前台](https://img-blog.csdnimg.cn/20210209110919684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80ODkyMjE1NA==,size_16,color_FFFFFF,t_70)
 
 后台页面展示:
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20210209110954195.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80ODkyMjE1NA==,size_16,color_FFFFFF,t_70)
+![后台](https://img-blog.csdnimg.cn/20210209110954195.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80ODkyMjE1NA==,size_16,color_FFFFFF,t_70)
