@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客分类</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/semantic.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/me.css}"/>
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="common_fragments :: menu(1)" class="navbar navbar-default  navbar-inverse" role="navigation"></nav>
+
+<!--中间内容-->
+<!--照片墙-->
+<div id="picture-main">
+
+    <article class="thumb">
+        <div class="ma5-gallery">
+            <div class="rthumbnail" >
+                <a href="../static/images/backimg1.jpg"  th:each="picture : ${pictures}" th:href="@{${picture.avatar}}">
+                    <img class="picture-zmki_px" src="../static/images/backimg1.jpg" th:src="@{${picture.avatar}}" style="width: 350px;height: 320px;padding-left: 10px;padding-bottom: 10px">
+                </a>
+            </div>
+        </div>
+    </article>
+
+</div>
+
+<br>
+<br>
+<!--底部栏-->
+<footer th:replace="common_fragments :: foot"
+        class="ui inverted vertical segment m-padded-tb-massive m-opacity"></footer>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../static/js/semantic/semantic.min.js" th:src="@{/js/semantic/semantic.min.js}"></script>
+
+
+</script>
+</body>
+</html>

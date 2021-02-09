@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分类新增</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/semantic.min.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/me.css}"/>
+</head>
+<body>
+  <!--中间内容-->
+  <div  class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+      <form action="#" method="post" class="ui form" th:action="@{/admin/updateType/{id}(id=${type.id})}">
+        <input type="hidden" name="id" th:value="${type.id}">
+        <div class=" field">
+          <div class="ui left labeled input">
+            <label class="ui teal basic label">名称</label>
+            <input type="text" name="name" placeholder="分类名称" th:value="${type.name}">
+          </div>
+        </div>
+
+        <div class="ui error message"></div>
+        <div class="ui right aligned container">
+          <button class="ui teal submit button">提交</button>
+          <button type="button" class="ui button">返回</button>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <!--<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+  <script src="../static/js/semantic/semantic.min.js" th:src="@{/js/semantic/semantic.min.js}"></script>
+
+  <script>
+
+    $('.menu.toggle').click(function () {
+      $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+      on : 'hover'
+    });
+
+    $('.ui.form').form({
+      fields : {
+        title : {
+          identifier: 'name',
+          rules: [{
+            type : 'empty',
+            prompt: '请输入分类名称'
+          }]
+        }
+      }
+    });
+    $(".ui.button").click(function () {
+      location.href="/admin/types";
+    });
+
+  </script>
+</body>
+</html>

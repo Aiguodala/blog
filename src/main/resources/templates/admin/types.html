@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分类管理</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/semantic.min.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/me.css}"/>
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="admin/admin_fragments :: adminMenu" class="navbar navbar-default  navbar-inverse" role="navigation">
+</nav>
+<!--  <div class="ui attached pointing menu">
+    <div class="ui container">
+      <div class="right menu">
+        <a href="#" th:href="@{/admin/types/input}" class="item">新增</a>
+        <a href="#" th:href="@{/admin/types}" class="teal active item">列表</a>
+      </div>
+    </div>
+  </div>-->
+
+  <!--中间内容-->
+  <div  class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+      <div class="ui success message" th:unless="${#strings.isEmpty(msg)}">
+        <i class="close icon"></i>
+        <div class="header">提示：</div>
+        <p th:text="${msg}">恭喜，操作成功！</p>
+      </div>
+      <table class="ui compact teal table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>名称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="type,stat:${types}">
+            <td th:text="${stat.count}">1</td>
+            <td th:text="${type.name}">刻意练习清单</td>
+            <td>
+              <!--<a href="#" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>-->
+
+
+              <!-- 按钮触发模态框 -->
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" th:href="@{/admin/beforeUpdateType/{id}(id=${type.id})}">
+                编辑
+              </button>
+              <!-- 模态框（Modal） -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                      </button>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+              </div>
+              <button class="btn btn-primary btn-sm"><a th:href="@{/admin/deleteType/{id}(id=${type.id})}" style="color: white">
+                删除</a>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="6" >
+
+              <!-- 按钮触发模态框 -->
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal2">
+                新增
+              </button>
+              <!-- 模态框（Modal） -->
+              <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="#" method="post"  class="ui form" th:action="@{/admin/saveType}">
+                        <input type="hidden" name="id" >
+                        <div class=" field">
+                          <div class="ui left labeled input">
+                            <label class="ui teal basic label">名称</label>
+                            <input type="text" name="name" placeholder="分类名称">
+                          </div>
+                        </div>
+
+                        <div class="ui error message"></div>
+                        <div class="modal-footer">
+                          <input type="submit" value="确认新增" class="btn btn-primary">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                          </button>
+
+                        </div>
+                      </form>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+              </div>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <!--底部footer-->
+  <footer th:replace="common_fragments :: foot" class="ui inverted vertical segment m-padded-tb-massive"></footer>
+
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../static/js/semantic/semantic.min.js" th:src="@{/js/semantic/semantic.min.js}"></script>
+
+  <script>
+    $('.menu.toggle').click(function () {
+      $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+      on : 'hover'
+    });
+
+    //消息提示关闭初始化
+    $('.message .close')
+      .on('click', function () {
+        $(this)
+          .closest('.message')
+          .transition('fade');
+      });
+
+    $('.ui.form').form({
+      fields : {
+        title : {
+          identifier: 'name',
+          rules: [{
+            type : 'empty',
+            prompt: '请输入分类名称'
+          }]
+        }
+      }
+    });
+  </script>
+</body>
+</html>

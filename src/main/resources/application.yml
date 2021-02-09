@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/blog?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+      username: root
+      password: wlby0208
+
+  thymeleaf:
+    mode: HTML
+  redis:
+    host: 121.196.166.231
+    port: 6379
+
+logging:
+  file:
+    name: log/blog.log
+
+
+mybatis-plus:
+  type-aliases-package: top.nnzi.bean
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+comment.avatar: /img/default.png

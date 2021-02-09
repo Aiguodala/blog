@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>共有部分</title>
+</head>
+<body>
+
+<!--导航-->
+<nav th:fragment="adminMenu" class="navbar navbar-default  navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header" style="padding-right: 50px;padding-left: 30px;">
+      <a class="navbar-brand" href="#">Aiguodala 的个人博客</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#" th:href="@{/admin/blogs}">
+            <span class="glyphicon glyphicon-home"></span>&nbsp;博客管理
+          </a>
+        </li>
+
+        <li class="dropdown" ><a href="#" th:href="@{/admin/types}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;分类管理</a></li>
+        <li><a href="#" th:href="@{/admin/tags}"><span class="glyphicon glyphicon-tags" ></span>&nbsp;标签管理</a></li>
+        <li><a href="#" th:href="@{/admin/pictures}"><span class="glyphicon glyphicon-picture" ></span>&nbsp;相册管理</a></li>
+        <li><a href="#" th:href="@{/}"><span class="glyphicon glyphicon-pencil" ></span>&nbsp;去主页</a></li>
+      </ul>
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown" >
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="personalMenu">
+              <img class="ui avatar image" src="https://unsplash.it/20/20?image=1005" th:src="@{${session.user.avatar}}">
+              <span>&nbsp;&nbsp;用户：</span><span  th:text="${session.user.username}">iguodala</span>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#" th:href="@{/admin/loginOut}" id="loginOut"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
+              <li><a href="#" ><span class="glyphicon glyphicon-cog"></span>&nbsp;修改密码</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
+  </div>
+</nav>
+
+</body>
+</html>

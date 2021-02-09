@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客首页</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/semantic.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/me.css}"/>
+</head>
+
+<body>
+    <nav th:replace="common_fragments :: menu(1)" class="navbar navbar-default  navbar-inverse" role="navigation"></nav>
+
+    <!--中间内容-->
+    <div class="m-padded-tb-big m-min-height">
+        <div class="ui m-container-large m-mobile-wide m-pc-wide m-pc-height">
+            <div class="ui stackable grid">
+                <!--左边个人简介-->
+                <div class="four wide column animated slideInLeft">
+                    <!--个人简介-->
+                    <div class="ui card fluid ">
+                        <div  class="image site-author">
+                            <img th:src="@{/img/myPhoto.jpg}">
+                        </div>
+                        <div class="content">
+                            <a class="header">Aiguodala</a>
+                            <!-- <div class="meta">
+                                <span class="date">Just a coder</span>
+                            </div> -->
+                            <div class="description">
+                                <p>一个Java初学者</p>
+                                <p>好好学习，天天向上</p>
+                            </div>
+                        </div>
+                        <div class="extra content links-of-author">
+                            <a href="https://github.com/Aiguodala" class="ui circular github icon button" data-content="点击跳转github" data-position="bottom left"><i class="github icon"></i></a>
+                            <a class="ui wechat circular icon button" data-content="A.iguodala" data-position="bottom center"><i class="weixin icon"></i></a>
+                            <a class="ui qq circular icon button" data-content="1467059722" data-position="bottom center"><i class="qq icon"></i></a>
+                            <a href="https://blog.csdn.net/weixin_48922154" target="_blank" class="ui csdn circular icon button" data-content="点击跳转CSDN" data-position="bottom right"><i class="copyright outline icon"></i></a>
+                        </div>
+
+                        <div class="ui wechat-qr flowing popup transition hidden">
+                            <img src="../static/images/wechat.jpg" th:src="@{/img/wechat.jpg}" alt="" class="ui rounded image m-mobile-hide" style="width: 110px">
+                            <span class="m-mobile-show">公众号：Codemusik</span>
+                        </div>
+                    </div>
+                    <div class="ui segments">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class="idea icon"></i>分类
+                                </div>
+                                <div class="right aligned column">
+                                    <a >more <i class="angle double right icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui blue segment">
+                            <div class="ui fluid vertical menu">
+                                <a  class="item"  th:each="type:${types}" th:href="@{/types/{id}(id=${type.id})}">
+                                    <span th:text="${type.name}">学习日志</span>
+                                    <div class="ui blue basic left pointing label" th:text="${type.blogsNum}">13</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--标签-->
+                    <div class="ui segments m-margin-top-large">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class="tags icon"></i>标签
+                                </div>
+                                <div class="right aligned column">
+                                    <a >more <i class="angle double right icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui blue segment">
+                            <a th:href="@{/tags/{id}(id=${tag.id})}" class="ui blue basic left pointing label m-margin-tb-tiny" style="font-size: xx-small" th:each="tag:${tags}">
+                                <span th:text="${tag.name}">方法论</span>
+                                <div class="detail" th:text="${tag.blogsNum}">23</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!--最新推荐-->
+                    <div class="ui segments m-margin-top-large">
+                        <div class="ui secondary segment ">
+                            <i class="bookmark icon"></i>最新推荐
+                        </div>
+                        <div class="ui segment" th:each="recommendBlog:${recommendBlogs}">
+                            <a class="m-black m-text-thin"th:text="${recommendBlog.title}">用户故事（User Story）</a>
+                        </div>
+                    </div>
+
+                    <!--留言-->
+                    <div class="ui segments m-margin-top-large">
+                        <div class="ui secondary segment ">
+                            <i class="comments outline icon"></i>最新留言
+                        </div>
+                        <div class="ui segment" id="leavingMessageList">
+                            <div class="ui segment" th:each="leavingMessage:${leavingMessages}">
+                                <a class="m-black m-text-thin" th:text="${leavingMessage.nickname}" style="color: cornflowerblue">用户故事</a>:<br>
+                                <a class="m-black m-text-thin" th:text="${leavingMessage.content}">用户故事（User Story）</a><br>
+                                <a class="m-black m-text-thin" th:text="${#dates.format(leavingMessage.createTime,'yyyy-MM-dd')}" style="font-size: xx-small;padding-left: 90px">2019-11-20</a>
+                            </div>
+                            <div style="padding-left: 130px">
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="background-color: darkgray;border: none">
+                                    留言
+                                </button>
+                            </div>
+
+                            <!-- 模态框（Modal） -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">
+                                                留言框
+                                            </h4>
+                                        </div>
+                                        <form action="#" method="post" th:action="@{/leavingMessage}">
+                                        <div class="modal-body">
+                                            <textarea name="content" cols="75" rows="8" placeholder="输入留言信息..."></textarea>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            昵称：<input type="text" name="nickname" placeholder="输入昵称...">
+                                            <button type="submit" class="btn btn-primary" id="leavingMessageBtn">
+                                                留言
+                                            </button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                            </button>
+                                        </div>
+                                        </form>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal -->
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <!--中间博客列表-->
+                <div class="twelve wide column animated slideInUp">
+                    <!--header-->
+                    <div class="ui top attached segment">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <h3 class="ui blue header">我的博客</h3>
+                            </div>
+                            <div class="right aligned column">
+                                共
+                                <h2 class="ui teal header m-inline-block m-text-thin" th:text="${blogPages.total}"> 14 </h2> 篇
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--content-->
+                    <div class="ui attached  segment">
+                        <div class="ui padded vertical segment m-padded-tb-large"  th:each="blog:${blogPages.records}" th:if="${blog.published}">
+                            <div class="ui middle aligned mobile reversed stackable grid">
+                                <div class="eleven wide column">
+
+                                    <h3 class="ui header"><a class="m-black post-title-link" th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>
+                                    <div class="right aligned two wide column">
+                                        <a class="ui blue basic label m-padded-tiny m-text-thin" th:text="${blog.flag.name}">原创</a>
+                                    </div>
+                                    <p class="m-text" th:text="${blog.description}">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...</p>
+                                    <div class="ui grid">
+
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <br>
+                                                    <br>
+                                                <img src="https://unsplash.it/100/100?image=1005" th:src="${blog.user.avatar}"  alt="" class="ui avatar image">
+                                                <div class="content"><a th:text="${blog.user.username}" class="header">aiguodala</a></div>
+                                                </div>
+                                                <div class="item">
+                                                    <br>
+                                                    <br>
+                                                    <span class="glyphicon glyphicon-calendar">&nbsp;<span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}">2017-10-01</span>&nbsp;</span>
+                                                    <span  class="glyphicon glyphicon-eye-open">&nbsp;<span th:text="${blog.views}">2342</span>&nbsp;</span>
+                                                    <span  class="glyphicon glyphicon-comment">&nbsp;<span th:text="${blog.commentCount}">2342</span></span>
+                                                </div>
+                                                <div class="item">
+
+                                                </div>
+                                                <div class="item">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="five wide column">
+                                    <a th:href="@{/blog/{id}(id=${blog.id})}">
+                                        <img src="https://unsplash.it/800/450?image=1005" th:src="${blog.firstPicture}" alt="" class="ui rounded image" style="height: 180px;width: 800px">
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--分页按钮-->
+                    <div class="ui bottom attached segment center aligned" id="pageBtns">
+                            <div  align="left" style="display: inline;padding-right: 200px">
+                                <a th:href="@{/(page=${blogPages.current}-1)}" class="  item" th:if="${blogPages.hasPrevious()}"><i class="large chevron left icon"></i>上一页</a>
+                            </div>
+                             <span>当前第 [[${blogPages.current}]] 页</span> / <span>总共 [[${blogPages.pages}]] 页</span>
+                            <div  align="right" style="display: inline;padding-left: 200px">
+                                <a th:href="@{/(page=${blogPages.current}+1)}" class=" item" th:if="${blogPages.hasNext()}">下一页<i class="large chevron right icon"></i></a>
+                            </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+    <br>
+    <!--底部栏-->
+    <footer th:replace="common_fragments :: foot" class="ui inverted vertical segment m-padded-tb-massive m-opacity"></footer>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../static/js/semantic/semantic.min.js" th:src="@{/js/semantic/semantic.min.js}"></script>
+    <script th:inline="javascript" type="text/javascript">
+
+
+        $('.menu.toggle').click(function() {
+            $('.m-item').toggleClass('m-mobile-hide');
+        });
+        $('.wechat').popup();
+        $('.csdn').popup();
+        $('.qq').popup();
+        $('.github').popup();
+    </script>
+</body>
+
+</html>
